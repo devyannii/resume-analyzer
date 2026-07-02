@@ -1,5 +1,6 @@
 import streamlit as st
 from parser import extract_text
+from skills import extract_skills
 
 st.set_page_config(page_title="Resume Analyzer")
 
@@ -23,3 +24,19 @@ if uploaded_file:
         text,
         height=300
     )
+
+
+skills = extract_skills(text)
+
+st.subheader("Detected Skills")
+
+if skills:
+    st.success(f"{len(skills)} Skills Found")
+
+    cols = st.columns(3)
+
+    for i, skill in enumerate(skills):
+        cols[i % 3].success(skill)
+
+else:
+    st.error("No Skills Found")
