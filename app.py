@@ -13,30 +13,31 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file:
 
+    # Extract text
     text = extract_text(uploaded_file)
 
     st.success("Resume Uploaded Successfully!")
 
-    st.subheader("Extracted Text")
-
+    # Display extracted text
+    st.subheader("Resume Content")
     st.text_area(
         "Resume Content",
         text,
         height=300
     )
 
+    # Extract skills
+    skills = extract_skills(text)
 
-skills = extract_skills(text)
+    st.subheader("Detected Skills")
 
-st.subheader("Detected Skills")
+    if skills:
+        st.success(f"{len(skills)} Skills Found")
 
-if skills:
-    st.success(f"{len(skills)} Skills Found")
+        cols = st.columns(3)
 
-    cols = st.columns(3)
+        for i, skill in enumerate(skills):
+            cols[i % 3].success(skill)
 
-    for i, skill in enumerate(skills):
-        cols[i % 3].success(skill)
-
-else:
-    st.error("No Skills Found")
+    else:
+        st.error("No Skills Found")
