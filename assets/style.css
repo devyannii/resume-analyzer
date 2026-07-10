@@ -10,6 +10,7 @@
 
 .stApp { background: var(--canvas); color: var(--ink); }
 .block-container { max-width: 1120px; padding-top: 1.3rem; padding-bottom: 3rem; }
+header[data-testid="stHeader"], #MainMenu, footer { display: none; }
 
 .topbar { align-items: center; display: flex; gap: 0.65rem; margin-bottom: 3.8rem; }
 .brand-mark { align-items: center; background: var(--blue); border-radius: 8px; color: #fff; display: flex; font-weight: 800; height: 30px; justify-content: center; width: 30px; }
