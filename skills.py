@@ -3,7 +3,7 @@ import pandas as pd
 import re
 
 # -------------------------------
-# Load skills from CSV
+# Load Skills
 # -------------------------------
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -11,36 +11,34 @@ SKILLS_FILE = BASE_DIR / "data" / "skills.csv"
 
 skills_df = pd.read_csv(SKILLS_FILE)
 
-# Remove empty values and convert to a list
 SKILLS = (
     skills_df["skill"]
     .dropna()
     .astype(str)
+    .str.strip()
+    .unique()
     .tolist()
 )
 
-# -------------------------------
-# Extract Skills
-# -------------------------------
+# Compile regex patterns once
+SKILL_PATTERNS = {
+    skill: re.compile(r"\b" + re.escape(skill.lower()) + r"\b")
+    for skill in SKILLS
+}
 
-def extract_skills(text):
+
+def extract_skills(text: str) -> list[str]:
     """
     Extract matching skills from resume text.
-
-    Args:
-        text (str): Resume text
-
-    Returns:
-        list: Sorted list of detected skills
     """
 
     text = text.lower()
+
     found_skills = set()
 
-    for skill in SKILLS:
-        pattern = r"\b" + re.escape(skill.lower()) + r"\b"
+    for skill, pattern in SKILL_PATTERNS.items():
 
-        if re.search(pattern, text):
+        if pattern.search(text):
             found_skills.add(skill)
 
-    return sorted(found_skills)
+    return sorted(found_skills, key=str.lower)

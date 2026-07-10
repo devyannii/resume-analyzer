@@ -1,0 +1,48 @@
+.main {
+
+    background-color: #0F172A;
+
+}
+
+.block-container {
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+h1 {
+
+    color: white;
+    font-size: 3rem;
+}
+
+h2 {
+
+    color: white;
+}
+
+h3 {
+
+    color: white;
+}
+
+.stMetric {
+
+    background: #1E293B;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    border:1px solid #334155;
+}
+
+div[data-testid="stExpander"]{
+
+    border-radius:15px;
+}
+
+div[data-testid="stVerticalBlock"]{
+
+    gap:1rem;
+}
