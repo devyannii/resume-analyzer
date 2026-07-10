@@ -71,6 +71,17 @@ div[data-testid="stExpander"] {
     border-radius: 15px;
 }
 
+div[data-testid="stMetric"] {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 1rem 1.1rem;
+}
+
+div[data-testid="stMetricLabel"] p {
+    color: var(--muted);
+}
+
 .stButton > button {
     background: linear-gradient(110deg, #7a67ff, #9d8fff);
     border: 0;

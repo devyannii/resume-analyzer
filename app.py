@@ -45,6 +45,15 @@ sections = extract_sections(resume_text)
 
 st.success("Resume uploaded successfully. Your analysis is ready.")
 
+st.subheader("Resume dashboard")
+resume_words = len(resume_text.split())
+populated_sections = sum(1 for content in sections.values() if content)
+dashboard_columns = st.columns(4)
+dashboard_columns[0].metric("Detected skills", len(skills))
+dashboard_columns[1].metric("Resume sections", populated_sections)
+dashboard_columns[2].metric("Resume length", f"{resume_words} words")
+dashboard_columns[3].metric("Profile status", "Ready")
+
 st.subheader("Detected skills")
 if skills:
     skill_columns = st.columns(3)
