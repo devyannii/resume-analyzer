@@ -82,6 +82,36 @@ div[data-testid="stMetricLabel"] p {
     color: var(--muted);
 }
 
+.section-card {
+    min-height: 150px;
+    background: linear-gradient(145deg, rgba(40, 49, 98, 0.9), var(--surface));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.2rem 1.3rem;
+}
+
+.section-card__label {
+    color: var(--accent-bright);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.section-card__count {
+    color: var(--ink);
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin: 0.35rem 0 0.5rem;
+}
+
+.section-card p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin: 0;
+}
+
 .stButton > button {
     background: linear-gradient(110deg, #7a67ff, #9d8fff);
     border: 0;

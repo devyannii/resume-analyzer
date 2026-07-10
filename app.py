@@ -1,3 +1,4 @@
+import html
 from pathlib import Path
 
 import streamlit as st
@@ -61,6 +62,32 @@ if skills:
         skill_columns[index % 3].success(skill.title())
 else:
     st.warning("No skills were detected in this resume.")
+
+st.subheader("Resume sections")
+available_sections = [
+    (section, content) for section, content in sections.items() if content
+]
+if available_sections:
+    for index in range(0, len(available_sections), 2):
+        card_columns = st.columns(2)
+        for column, (section, content) in zip(card_columns, available_sections[index : index + 2]):
+            preview = html.escape(" ".join(content[:2]))
+            with column:
+                st.markdown(
+                    f"""
+                    <article class="section-card">
+                        <div class="section-card__label">{html.escape(section)}</div>
+                        <div class="section-card__count">{len(content)} entries</div>
+                        <p>{preview[:180]}</p>
+                    </article>
+                    """,
+                    unsafe_allow_html=True,
+                )
+                with st.expander(f"View {section.title()}"):
+                    for line in content:
+                        st.markdown(f"- {line}")
+else:
+    st.info("No standard resume sections were identified.")
 
 st.subheader("Resume content")
 with st.expander("View extracted text"):
