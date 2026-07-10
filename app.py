@@ -10,7 +10,7 @@ from section_parser import extract_sections
 from skills import extract_skills
 
 
-st.set_page_config(page_title="ResumeAI | Resume Analyzer", page_icon="R", layout="wide")
+st.set_page_config(page_title="ResumeAI", page_icon="R", layout="wide")
 
 
 def load_css() -> None:
@@ -18,22 +18,55 @@ def load_css() -> None:
     st.markdown(f"<style>{css_path.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
 
 
+def render_section_card(section: str, content: list[str]) -> None:
+    preview = html.escape(" ".join(content[:2]))
+    st.markdown(
+        f"""
+        <article class="section-card">
+            <span>{html.escape(section)}</span>
+            <strong>{len(content)} entries</strong>
+            <p>{preview[:150]}</p>
+        </article>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 load_css()
 st.markdown(
     """
+    <header class="topbar">
+        <div class="brand-mark">R</div>
+        <div><strong>ResumeAI</strong><small>Resume workspace</small></div>
+        <div class="topbar-status">Smart resume analysis</div>
+    </header>
     <section class="hero">
-        <div class="eyebrow">Career intelligence, simplified</div>
-        <h1>Make every resume count.</h1>
-        <p>Upload your resume, compare it with a role, and find the strongest next edits.</p>
+        <div>
+            <p class="eyebrow">Your career workspace</p>
+            <h1>Build a resume that<br>gets noticed.</h1>
+            <p class="hero-copy">Understand your resume, surface your strongest skills, and tailor it for the role you want.</p>
+        </div>
+        <div class="hero-orb"><span>ATS</span><strong>Ready</strong></div>
     </section>
     """,
     unsafe_allow_html=True,
 )
 
-uploaded_file = st.file_uploader("Upload a resume", type=["pdf"])
+st.markdown('<div class="upload-card">', unsafe_allow_html=True)
+uploaded_file = st.file_uploader("Drop your resume here", type=["pdf"])
+st.caption("PDF only. Your resume stays in this session.")
+st.markdown("</div>", unsafe_allow_html=True)
 
 if not uploaded_file:
-    st.info("Start by uploading a PDF resume to unlock your personalized analysis.")
+    st.markdown(
+        """
+        <div class="empty-state">
+            <strong>Start with your resume</strong>
+            <span>Upload a PDF to see your skills, sections, and role match in one place.</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     st.stop()
 
 resume_text = extract_text(uploaded_file)
@@ -41,71 +74,64 @@ skills = extract_skills(resume_text)
 sections = extract_sections(resume_text)
 available_sections = [(section, content) for section, content in sections.items() if content]
 
-st.success("Resume uploaded successfully. Your analysis is ready.")
-overview_tab, resume_tab, role_match_tab = st.tabs(
-    ["Overview", "Resume details", "Role match"]
-)
+overview_tab, resume_tab, match_tab = st.tabs(["Overview", "My resume", "Role match"])
 
 with overview_tab:
-    st.subheader("Resume dashboard")
-    resume_words = len(resume_text.split())
-    dashboard_columns = st.columns(4)
-    dashboard_columns[0].metric("Detected skills", len(skills))
-    dashboard_columns[1].metric("Resume sections", len(available_sections))
-    dashboard_columns[2].metric("Resume length", f"{resume_words} words")
-    dashboard_columns[3].metric("Profile status", "Ready")
+    st.markdown('<p class="section-kicker">Resume overview</p>', unsafe_allow_html=True)
+    metrics = st.columns(4)
+    metrics[0].metric("Skills found", len(skills))
+    metrics[1].metric("Sections", len(available_sections))
+    metrics[2].metric("Word count", len(resume_text.split()))
+    metrics[3].metric("Status", "Ready")
 
-    st.subheader("Detected skills")
+    st.markdown("#### Highlighted skills")
     if skills:
-        skill_columns = st.columns(3)
-        for index, skill in enumerate(skills):
-            skill_columns[index % 3].success(skill.title())
+        st.markdown(
+            "".join(f'<span class="skill-pill">{html.escape(skill.title())}</span>' for skill in skills[:18]),
+            unsafe_allow_html=True,
+        )
     else:
-        st.warning("No skills were detected in this resume.")
+        st.info("No known skills were detected. Try a resume with a dedicated skills section.")
 
 with resume_tab:
-    st.subheader("Resume sections")
+    st.markdown("#### Resume sections")
     if available_sections:
         for index in range(0, len(available_sections), 2):
-            card_columns = st.columns(2)
-            for column, (section, content) in zip(card_columns, available_sections[index : index + 2]):
-                preview = html.escape(" ".join(content[:2]))
+            columns = st.columns(2)
+            for column, (section, content) in zip(columns, available_sections[index : index + 2]):
                 with column:
-                    st.markdown(
-                        f"""
-                        <article class="section-card">
-                            <div class="section-card__label">{html.escape(section)}</div>
-                            <div class="section-card__count">{len(content)} entries</div>
-                            <p>{preview[:180]}</p>
-                        </article>
-                        """,
-                        unsafe_allow_html=True,
-                    )
+                    render_section_card(section, content)
                     with st.expander(f"View {section.title()}"):
                         for line in content:
                             st.markdown(f"- {line}")
     else:
-        st.info("No standard resume sections were identified.")
+        st.info("No standard sections were identified in this resume.")
 
     with st.expander("View extracted text"):
         st.text_area("Extracted text", resume_text, height=260, disabled=True)
 
-with role_match_tab:
-    st.subheader("Job description")
+with match_tab:
+    st.markdown("#### Match your next role")
     job_description = st.text_area(
-        "Paste the job description to compare your resume",
-        height=220,
-        placeholder="Paste a role description here...",
+        "Paste a job description",
+        height=190,
+        placeholder="Paste the job description here...",
+        label_visibility="collapsed",
     )
-
     if job_description.strip():
         job_data = parse_job_description(job_description)
         analysis = calculate_ats_score(skills, job_data["skills"])
-        score_columns = st.columns(3)
-        score_columns[0].metric("ATS score", f"{analysis['score']}%")
-        score_columns[1].metric("Matched skills", analysis["matched_count"])
-        score_columns[2].metric("Missing skills", analysis["missing_count"])
+        score, matched, missing = st.columns(3)
+        score.metric("ATS score", f"{analysis['score']}%")
+        matched.metric("Matched", analysis["matched_count"])
+        missing.metric("To improve", analysis["missing_count"])
         st.progress(analysis["score"] / 100)
-        st.write(f"**{analysis['verdict']}** based on the role's detected skills.")
+
+        if analysis["missing"]:
+            st.markdown("#### Skills to consider adding")
+            st.markdown(
+                "".join(f'<span class="skill-pill muted-pill">{html.escape(skill.title())}</span>' for skill in analysis["missing"]),
+                unsafe_allow_html=True,
+            )
     else:
-        st.info("Add a job description to reveal your ATS score and skill gaps.")
+        st.info("Add a job description to see your ATS score and skill gaps.")
