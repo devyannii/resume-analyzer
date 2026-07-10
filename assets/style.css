@@ -1,48 +1,88 @@
-.main {
+:root {
+    --ink: #edf0ff;
+    --muted: #aeb7d5;
+    --surface: rgba(22, 29, 60, 0.82);
+    --surface-strong: #1c2450;
+    --border: rgba(155, 172, 255, 0.18);
+    --accent: #8b7cff;
+    --accent-bright: #b4a9ff;
+}
 
-    background-color: #0F172A;
-
+.stApp {
+    background:
+        radial-gradient(circle at 12% 4%, rgba(119, 92, 255, 0.23), transparent 28rem),
+        radial-gradient(circle at 88% 20%, rgba(49, 199, 231, 0.14), transparent 22rem),
+        #0b1027;
+    color: var(--ink);
 }
 
 .block-container {
-
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    max-width: 1180px;
+    padding-top: 3.25rem;
+    padding-bottom: 3.5rem;
 }
 
-h1 {
+.hero {
+    margin-bottom: 2.4rem;
+}
 
+.eyebrow {
+    color: var(--accent-bright);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    color: var(--ink);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    letter-spacing: -0.055em;
+    line-height: 1;
+    margin: 0.45rem 0 0.8rem;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 1.08rem;
+    margin: 0;
+}
+
+h2, h3, p, label, .stMarkdown {
+    color: var(--ink);
+}
+
+div[data-testid="stFileUploader"], div[data-testid="stTextArea"] {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 0.45rem;
+}
+
+div[data-testid="stFileUploaderDropzone"] {
+    background: transparent;
+    border: 1px dashed rgba(180, 169, 255, 0.45);
+    border-radius: 13px;
+}
+
+div[data-testid="stExpander"] {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+.stButton > button {
+    background: linear-gradient(110deg, #7a67ff, #9d8fff);
+    border: 0;
+    border-radius: 10px;
     color: white;
-    font-size: 3rem;
+    font-weight: 700;
 }
 
-h2 {
-
-    color: white;
+textarea, input {
+    color: var(--ink) !important;
 }
 
-h3 {
-
-    color: white;
-}
-
-.stMetric {
-
-    background: #1E293B;
-
-    padding:20px;
-
-    border-radius:15px;
-
-    border:1px solid #334155;
-}
-
-div[data-testid="stExpander"]{
-
-    border-radius:15px;
-}
-
-div[data-testid="stVerticalBlock"]{
-
-    gap:1rem;
+div[data-testid="stVerticalBlock"] {
+    gap: 1.1rem;
 }
