@@ -1,0 +1,25 @@
+@import "./styles/theme.css";
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(117, 201, 200, 0.35), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(192, 137, 221, 0.25), transparent 35%),
+    #F7F4EA;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 24px;
+}

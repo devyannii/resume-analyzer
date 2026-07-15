@@ -1,61 +1,69 @@
-import { NavLink } from "react-router-dom"
-import     {
-    LayoutDashboard,
-    FileText,
-    BarChart3,
-    Bot,
-    LineChart,
-    Settings,
-}   from "lucide-react";
+import "./Sidebar.css";
 
-const menuItems = [
+import {
+  LayoutDashboard,
+  FileText,
+  Target,
+  Sparkles,
+  BarChart3,
+  Settings,
+} from "lucide-react";
+
+import { NavLink } from "react-router-dom";
+
+const menu = [
   {
     title: "Dashboard",
-    path: "/",
     icon: LayoutDashboard,
+    path: "/",
   },
   {
     title: "Resume",
-    path: "/resume",
     icon: FileText,
+    path: "/resume",
   },
   {
     title: "ATS Report",
+    icon: Target,
     path: "/ats",
-    icon: BarChart3,
   },
   {
     title: "AI Review",
+    icon: Sparkles,
     path: "/ai",
-    icon: Bot,
   },
   {
     title: "Analytics",
+    icon: BarChart3,
     path: "/analytics",
-    icon: LineChart,
-  },
-  {
-    title: "Settings",
-    path: "/settings",
-    icon: Settings,
   },
 ];
 
 export default function Sidebar() {
   return (
-    <aside className="w-72 bg-[#193A31] h-screen flex flex-col p-6">
+    <aside className="sidebar">
 
-      {/* Logo */}
+      <div className="logo">
 
-      <h1 className="text-3xl font-bold text-[#3EB9A8] mb-12">
-        ResumeAI
-      </h1>
+        <div className="logo-circle">
+          ✨
+        </div>
 
-      {/* Navigation */}
+        <div>
 
-      <nav className="flex flex-col gap-3">
+          <h2>ResumeAI</h2>
 
-        {menuItems.map((item) => {
+          <p>AI Resume Assistant</p>
+
+        </div>
+
+      </div>
+
+      <div className="divider" />
+
+      <nav>
+
+        {menu.map((item) => {
 
           const Icon = item.icon;
 
@@ -65,41 +73,47 @@ export default function Sidebar() {
               key={item.title}
               to={item.path}
               className={({ isActive }) =>
-                `
-                flex
-                items-center
-                gap-4
-                px-5
-                py-4
-                rounded-xl
-                transition-all
-                duration-300
-
-                ${
-                  isActive
-                    ? "bg-[#3EB9A8] text-black"
-                    : "text-gray-300 hover:bg-[#1D6C61]"
-                }
-                `
+                isActive
+                  ? "nav-item active"
+                  : "nav-item"
               }
             >
-              <Icon size={22} />
 
-              <span className="font-medium">
-                {item.title}
-              </span>
+              <Icon size={20} />
+
+              <span>{item.title}</span>
 
             </NavLink>
 
           );
         })}
+
       </nav>
 
-      {/* Footer */}
+      <div className="bottom">
 
-      <div className="mt-auto text-gray-400 text-sm">
+        <div className="divider" />
 
-        ResumeAI v1.0
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            isActive
+              ? "nav-item active"
+              : "nav-item"
+          }
+        >
+
+          <Settings size={20} />
+
+          <span>Settings</span>
+
+        </NavLink>
+
+        <div className="version">
+
+          Version 1.0
+
+        </div>
 
       </div>
 

@@ -8,6 +8,7 @@ import ATS from "./pages/ATS";
 import AIReview from "./pages/AIReview";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import "./App.css";
 
 export default function App() {
   return (
