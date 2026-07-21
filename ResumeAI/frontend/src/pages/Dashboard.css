@@ -1,9 +1,29 @@
 .dashboard{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
 
-display:flex;
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
 
-flex-direction:column;
+.bottom-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
 
-gap:32px;
-
+.coming-soon{
+  background:white;
+  border-radius:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 15px 35px rgba(0,0,0,.05);
+  font-size:24px;
+  font-weight:700;
+  color:#80A1D4;
 }
