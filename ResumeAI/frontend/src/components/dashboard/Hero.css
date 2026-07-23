@@ -1,18 +1,18 @@
 .hero{
     display:grid;
-    grid-template-columns:1.5fr 1fr;
+    grid-template-columns:1.6fr 0.9fr;
 
-    gap:30px;
+    gap:24px;
 
-    background:white;
+    background:#fff;
 
-    border-radius:28px;
+    border-radius:24px;
 
-    padding:30px 40px;
+    padding:24px 30px;
 
-    box-shadow:0 15px 40px rgba(0,0,0,.06);
+    box-shadow:0 12px 30px rgba(0,0,0,.05);
 
-    min-height:260px;
+    height:220px;
 }
 
 .hero-left{
@@ -24,32 +24,32 @@
 .hero-badge{
     width:max-content;
 
-    padding:8px 18px;
+    padding:7px 16px;
 
     border-radius:30px;
 
     background:#EFEAF7;
 
-    color:#6E6E6E;
+    color:#666;
 
-    font-size:13px;
+    font-size:12px;
 
-    font-weight:700;
+    font-weight:600;
 
-    margin-bottom:18px;
+    margin-bottom:16px;
 }
 
 .hero h1{
 
-    font-size:38px;
+    font-size:32px;
 
     font-weight:800;
 
     color:#1F2937;
 
-    margin-bottom:16px;
+    line-height:1.15;
 
-    line-height:1.2;
+    margin-bottom:14px;
 }
 
 .hero h1 span{
@@ -61,13 +61,13 @@
 
     color:#6B7280;
 
-    font-size:16px;
+    font-size:15px;
 
-    line-height:1.7;
+    line-height:1.6;
 
-    max-width:500px;
+    max-width:480px;
 
-    margin-bottom:28px;
+    margin-bottom:22px;
 }
 
 .upload-btn{
@@ -76,21 +76,23 @@
 
     align-items:center;
 
+    justify-content:center;
+
     gap:10px;
 
-    width:200px;
+    width:180px;
 
-    height:52px;
+    height:46px;
 
     border:none;
 
-    border-radius:16px;
+    border-radius:14px;
 
     cursor:pointer;
 
     color:white;
 
-    font-size:15px;
+    font-size:14px;
 
     font-weight:700;
 
@@ -107,7 +109,7 @@
 
     transform:translateY(-3px);
 
-    box-shadow:0 15px 35px rgba(117,201,200,.35);
+    box-shadow:0 12px 28px rgba(117,201,200,.30);
 }
 
 .hero-right{
@@ -125,7 +127,7 @@
 
     height:100%;
 
-    border-radius:24px;
+    border-radius:20px;
 
     background:linear-gradient(
         135deg,
@@ -133,25 +135,33 @@
         #EEF4FF
     );
 
-    padding:28px;
+    padding:22px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
 }
 
 .score-title{
 
-    font-size:14px;
+    font-size:13px;
 
-    color:#777;
+    color:#7A7A7A;
 
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 
 .score-card h2{
 
-    font-size:56px;
+    font-size:48px;
+
+    font-weight:800;
 
     color:#80A1D4;
 
-    margin-bottom:24px;
+    margin-bottom:20px;
 }
 
 .status{
@@ -160,7 +170,7 @@
 
     flex-direction:column;
 
-    gap:16px;
+    gap:12px;
 }
 
 .status div{
@@ -171,7 +181,7 @@
 
     gap:10px;
 
-    color:#444;
+    font-size:14px;
 
-    font-size:15px;
+    color:#4B5563;
 }

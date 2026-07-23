@@ -2,7 +2,6 @@ import "./Dashboard.css";
 
 import Hero from "../components/dashboard/Hero";
 import StatsCard from "../components/dashboard/StatsCard";
-import UploadCard from "../components/dashboard/UploadCard";
 
 import {
   Target,
@@ -59,10 +58,12 @@ export default function Dashboard() {
 
       <div className="bottom-grid">
 
-        <UploadCard />
-
         <div className="coming-soon">
           Recent Activity
+        </div>
+
+        <div className="coming-soon">
+          AI Suggestions
         </div>
 
       </div>
